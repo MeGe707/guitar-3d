@@ -8,9 +8,10 @@ const App = () => {
   return (
     <main className='relative h-screen'>
       <Example></Example>
-      <Choicer></Choicer>
-      {/* <Scene></Scene> */}
-      {/* <FooterWithLogo></FooterWithLogo> */}
+        <Scene></Scene> 
+      <Choicer></Choicer> 
+     
+      <FooterWithLogo></FooterWithLogo> 
 
       
     </main>
