@@ -8,20 +8,30 @@ import { DirectionalLightHelper } from "three";
 import { useHelper } from "@react-three/drei";
 import { AmbientLight } from "three";
 
-const Scene = () => {
+const Scene = ({selectedCategory, selectedColor}) => {
+  
   return (
     <Canvas
-      camera={{ position: [0, 1.5, -2.9], fov: 50 }}
-      gl={{ toneMappingExposure: 1.5 }}
+      camera={{ position: [0, 1.5, -2.9], fov: 20 }}
+      gl={{ toneMappingExposure: 0.75 }}
     >
       <OrbitControls />
 
-      <ambientLight intensity={0.5} />
-      <directionalLight intensity={2} position={[4, 0, 5]} color="#ffffff" />
+      
+      <directionalLight
+ 
+  intensity={0.9}
+  position={[0, 5, 2]}
+  color="#dddddd"
+/>
 
-      <Environment preset="sunset" background={false} />
+      <Environment preset="studio" intensity={0.001} background={false} />
 
-      <Modell />
+      
+      <Modell
+        selectedCategory={selectedCategory}
+        selectedColor={selectedColor}
+      />
     </Canvas>
   );
 };
