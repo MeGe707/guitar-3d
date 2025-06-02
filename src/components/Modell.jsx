@@ -107,7 +107,7 @@ export default function Modell({ selectedCategory, selectedColor, ...props }) {
 
   return (
     
-      <group {...props} dispose={null}>
+      <group {...props} dispose={null} >
         <group scale={0.012} position={[0, 1.1, 0]} rotation={[0, 0, 0]}>
           <mesh /*gitar perdeleri*/
             castShadow
