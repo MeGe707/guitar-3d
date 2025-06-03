@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { MeshStandardMaterial } from "three";
 
 export default function Honeybee({selectedCategory, selectedColor, lastColors, ...props}) {
-  const { nodes, materials } = useGLTF('/medias/Honeybee.glb')
+  const { nodes, materials } = useGLTF('https://mege707.github.io/guitar-3d/medias/Honeybee.glb')
 
   
   const getColorForCategory = (category) =>

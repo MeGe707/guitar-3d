@@ -10,7 +10,7 @@ export default function Bumblebee({
   lastColors,        // parent’tan gelen obje
   ...props
 }) {
-  const { nodes, materials } = useGLTF("/medias/Bumblebee.glb");
+  const { nodes, materials } = useGLTF("https://mege707.github.io/guitar-3d/medias/Bumblebee.glb");
 
   // 1) getColorForCategory artık parent’ı okuyor:
   const getColorForCategory = (category) => {

@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { MeshStandardMaterial } from "three";
 
 export default function Hornet({selectedCategory, selectedColor, lastColors,  ...props}) {
-  const { nodes, materials } = useGLTF('/medias/Hornet.glb')
+  const { nodes, materials } = useGLTF('https://mege707.github.io/guitar-3d/medias/Hornet.glb')
 
   const getColorForCategory = (category) =>
     lastColors[category] || "#F0EBCD";

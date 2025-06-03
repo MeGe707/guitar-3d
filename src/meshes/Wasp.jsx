@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { MeshStandardMaterial } from "three";
 
 export default function Wasp({selectedCategory, selectedColor, lastColors ,...props}) {
-  const { nodes, materials } = useGLTF('/medias/Wasp.glb')
+  const { nodes, materials } = useGLTF('https://mege707.github.io/guitar-3d/medias/Wasp.glb')
 
 
 
