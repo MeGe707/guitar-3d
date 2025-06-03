@@ -1,11 +1,13 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import logo from "../assets/logo.png";
+
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Anasayfa', href: '#', current: true },
+  { name: 'Ürünler', href: '#', current: false },
+  { name: 'Projeler', href: '#', current: false },
+  { name: 'Polen', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -27,15 +29,15 @@ export default function Example() {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center">
+            <div className="flex shrink-0 mr-8 items-center">
               <img
                 alt="Your Company"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
+                src={logo}
+                className="h-20 w-20"
               />
             </div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
+            <div className="hidden sm:ml-6  sm:block">
+              <div className="flex space-x-4 mt-5">
                 {navigation.map((item) => (
                   <a
                     key={item.name}
@@ -62,45 +64,7 @@ export default function Example() {
               <BellIcon aria-hidden="true" className="size-6" />
             </button>
 
-            {/* Profile dropdown */}
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <button className='text-white'>Menu</button>
-                </MenuButton>
-              </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Your Profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
-            </Menu>
+                
           </div>
         </div>
       </div>

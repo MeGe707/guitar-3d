@@ -1,8 +1,7 @@
+// Choicer.jsx
+
 import { useState, useEffect } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const choices = [
@@ -18,48 +17,41 @@ const choices = [
         options2: ["Yellow", "Pink", "Gray", "Green", "Blue", "NavyBlue", "Red", "Black"],
       },
       {
-        category2: "Hornet",
-        options2: ["Yellow", "Pink", "Gray", "Green", "Blue", "NavyBlue", "Red", "Black"],
-      },
-      {
         category2: "Wasp",
         options2: ["Yellow", "Pink", "Gray", "Green", "Blue", "NavyBlue", "Red", "Black"],
       },
-      
+      {
+        category2: "Hornet",
+        options2: ["Yellow", "Pink", "Gray", "Green", "Blue", "NavyBlue", "Red", "Black"],
+      },
+    
     ],
   },
   {
     category: "Guitar Neck",
     options: [
-      { category2: "Tamburlanmış", options2: ["Dark", "Light"] },
-      { category2: "Deve Kuşu", options2: ["Black", "White"] },
-      { category2: "Timsah", options2: ["Black"] },
-      { category2: "Stingray", options2: ["Black"] },
-      { category2: "Piton", options2: ["White"] },
+      { category2: "Bumblebee", options2: ["Dark", "Light"] },
+      { category2: "Honeybee", options2: ["Dark", "Light"] },
+      { category2: "Wasp", options2: ["Dark", "Light"] },
+      { category2: "Hornet", options2: ["Dark", "Light"] },
     ],
   },
   {
     category: "Pickguard",
     options: [
-      { category2: "Tamburlanmış", options2: ["Black", "White"] },
-      { category2: "Yansıtıcı", options2: ["Black", "White"] },
-      { category2: "Deve Kuşu", options2: ["Black", "White"] },
-      { category2: "Timsah", options2: ["Black"] },
-      { category2: "Stingray", options2: ["Black"] },
-      { category2: "Piton", options2: ["White"] },
-      { category2: "Fleece", options2: ["Black", "Blue"] },
+      { category2: "Bumblebee", options2: ["Black", "White"] },
+      { category2: "Honeybee", options2: ["Black", "White"] },
+      { category2: "Wasp", options2: ["Black", "White"] },
+      { category2: "Hornet", options2: ["Black", "White"] },
     ],
   },
   {
     category: "Buttons",
     options: [
-      { category2: "Tamburlanmış", options2: ["Black", "Gray  "] },
-      { category2: "Yansıtıcı", options2: ["Black", "White"] },
-      { category2: "Deve Kuşu", options2: ["Black", "White"] },
-      { category2: "Timsah", options2: ["Black"] },
-      { category2: "Stingray", options2: ["Black"] },
-      { category2: "Piton", options2: ["White"] },
-      { category2: "Fleece", options2: ["Black", "Blue"] },
+      { category2: "Bumblebee", options2: ["Black", "Gray"] },
+      { category2: "Honeybee", options2: ["Black", "Gray"] },
+      { category2: "Wasp", options2: ["Black", "Gray"] },
+      { category2: "Hornet", options2: ["Black", "Gray"] },
     ],
   },
 ];
@@ -67,7 +59,6 @@ const choices = [
 const colors = [
   { color: "White", value: "FFFFFF" },
   { color: "Pink", value: "E281E7FF" },
-  
   { color: "Black", value: "343434FF" },
   { color: "Blue", value: "3C6193" },
   { color: "NavyBlue", value: "06294F" },
@@ -79,7 +70,7 @@ const colors = [
   { color: "Light", value: "F3EED1" },
 ];
 
-export default function Choicer({onChange}) {
+export default function Choicer({ isOpen, onToggle, onChange }) {
   const [category1Index, setCategory1Index] = useState(0);
   const [selected1, setSelected1] = useState(choices[0]);
   const [selectedCategory2, setSelectedCategory2] = useState(null);
@@ -87,10 +78,9 @@ export default function Choicer({onChange}) {
   const [direction, setDirection] = useState(1); // 1 = sağ, -1 = sol
 
   useEffect(() => {
-    // İlk category2'yi seç ve renkleri güncelle
     const firstCategory2 = selected1.options[0];
     setSelectedCategory2(firstCategory2);
-      
+    setSelectedColor(firstCategory2.options2[0]);
   }, [selected1]);
 
   const handleNextCategory = () => {
@@ -101,7 +91,6 @@ export default function Choicer({onChange}) {
       return newIndex;
     });
   };
-
   const handlePrevCategory = () => {
     setDirection(-1);
     setCategory1Index((prevIndex) => {
@@ -112,101 +101,138 @@ export default function Choicer({onChange}) {
   };
 
   useEffect(() => {
-    if (selected1 && selectedColor) {
-      onChange?.(selected1.category, selectedColor);
+    if (selected1 && selectedColor && selectedCategory2) {
+      onChange(selected1.category, selectedCategory2.category2, selectedColor);
     }
-  }, [selected1, selectedColor, onChange]);
-  
+  }, [selected1, selectedCategory2, selectedColor, onChange]);
+
   return (
-    <div className="fixed bottom-0 w-full bg-white shadow-lg p-4 flex flex-col items-center">
-      {/* Kategori Seçimi */}
-      <div className="flex items-center gap-32 p-2 rounded-lg">
-        <button onClick={handlePrevCategory} className="p-2">
-          <ArrowLeft size={24} />
-        </button>
-
-        <motion.div
-          key={selected1.category}
-          initial={{ opacity: 0.5, x: direction * 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0.5, x: -direction * 50 }}
-          transition={{ duration: 0.2 }}
-          className="text-center min-w-[150px]"
+    <div
+      className="fixed bottom-0 w-full bg-white shadow-lg flex flex-col items-center"
+      style={{
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        
+      }}
+    >
+      {/* Header / Toggle */}
+      <div className="w-full flex items-center justify-between  px-4">
+        <button
+          onClick={onToggle}
+          className="p-1 rounded hover:bg-gray-100"
         >
-          <span className="text-lg font-normal">{selected1.category} </span>
-          <br />
-          <span className="text-lg font-normal text-gray-500">
-            {category1Index + 1} / {choices.length}
-          </span>
-        </motion.div>
-
-        <button onClick={handleNextCategory} className="p-2">
-          <ArrowRight size={24} />
+          {isOpen ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
         </button>
+      
+        <div style={{ width: 28 }} />
       </div>
 
-      {/* category2 Seçenekleri */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={selected1.category}
-          initial={{ opacity: 0.25, x: direction * 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0.25, x: -direction * 100 }}
-          transition={{ duration: 0.1 }}
-          className="mt-2 flex gap-5 overflow-x-auto p-2"
-        >
-          {selected1.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setSelectedCategory2(option);
-                setSelectedColor(option.options2[0]); // Seçilen category2'ye göre ilk rengi ayarla
-              }}
-              className={`px-4 w-32 h-9 border rounded-full text-medium font-semibold transition ${
-                selectedCategory2?.category2 === option.category2
-                  ? "border-gray-950 border-2"
-                  : "border-gray-500"
-              }`}
-            >
-              {option.category2}
+      {isOpen && (
+       
+        <>
+         <div>
+          {/* 1) Birinci Seviye Kategori Seçimi */}
+          <div className="flex items-center gap-32 p-2 rounded-lg pl-14 w-full">
+            <button onClick={handlePrevCategory} className="pl-3">
+              <ArrowLeft size={24} />
             </button>
-          ))}
-        </motion.div>
-      </AnimatePresence>
 
-      {/* Seçili category2'nin Renk Seçenekleri */}
-      {selectedCategory2 && (
-        <AnimatePresence mode="wait">
-          <motion.div className="mt-2 flex gap-3 p-2">
-            {selectedCategory2.options2.map((color, index) => {
-              const colorObj = colors.find((c) => c.color === color);
-              const bgColor = colorObj ? `#${colorObj.value}` : "gray";
+            <motion.div
+              key={selected1.category}
+              initial={{ opacity: 0.5, x: direction * 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0.5, x: -direction * 50 }}
+              transition={{ duration: 0.2 }}
+              className="text-center min-w-[150px]"
+            >
+              <span className="text-lg font-normal">{selected1.category}</span>
+              <br />
+              <span className="text-lg font-normal text-gray-500">
+                {category1Index + 1} / {choices.length}
+              </span>
+            </motion.div>
 
-              return (
-                <motion.button
+            <button onClick={handleNextCategory} className="p-2">
+              <ArrowRight size={24} />
+            </button>
+          </div>
+
+          {/* 2) İkinci Seviye (Model) Seçimi */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selected1.category}
+              initial={{ opacity: 0.25, x: direction * 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0.25, x: -direction * 100 }}
+              transition={{ duration: 0.1 }}
+              className="mt-2 flex gap-5 ml-4 p-2 w-full mx-auto"
+            >
+              {selected1.options.map((option, index) => (
+                <button
                   key={index}
-                  onClick={() => setSelectedColor(color)} // Renk seçimi
-                  className="flex flex-col items-center gap-2 px-4 py-2"
-                  whileTap={{ scale: 0.9 }}
+                  onClick={() => {
+                    setSelectedCategory2(option);
+                    setSelectedColor(option.options2[0]);
+                  }}
+                  className={`px-4 w-32 h-9 border rounded-full text-medium font-semibold transition ${
+                    selectedCategory2?.category2 === option.category2
+                      ? "border-gray-950 border-2"
+                      : "border-gray-500"
+                  }`}
                 >
-                  <motion.div
-                    className={`w-8 h-8 rounded-full border border-gray-300 ${
-                      selectedColor === color
-                        ? "outline outline-offset-4 outline-gray-200"
-                        : ""
-                    }`}
-                    style={{ backgroundColor: bgColor, outlineWidth: "1.3px" }}
-                    whileHover={{ scale: 1.1 }}
-                  ></motion.div>
+                  {option.category2}
+                </button>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
-                  <div className="relative min-h-[16px] flex items-center">
-                    {selectedColor === color ? <p className="text-xs">{color}</p> : <p className="invisible text-xs">{color}</p>}
-                  </div>
-                </motion.button>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
+          {/* 3) Üçüncü Seviye (Renk) Seçimi */}
+          {selectedCategory2 && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedCategory2.category2}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className="mt-2 flex gap-3 justify-center p-1 w-full"
+              >
+                {selectedCategory2.options2.map((color, index) => {
+                  const colorObj = colors.find((c) => c.color === color);
+                  const bgColor = colorObj ? `#${colorObj.value}` : "gray";
+
+                  return (
+                    <motion.button
+                      key={index}
+                      onClick={() => setSelectedColor(color)}
+                      className="flex flex-col items-center gap-2 px-4 py-2"
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <motion.div
+                        className={`w-8 h-8 rounded-full border border-gray-300 ${
+                          selectedColor === color
+                            ? "outline outline-offset-4 outline-gray-200"
+                            : ""
+                        }`}
+                        style={{ backgroundColor: bgColor, outlineWidth: 1.3 }}
+                        whileHover={{ scale: 1.1 }}
+                      ></motion.div>
+
+                      <div className="relative min-h-[16px] flex items-center">
+                        {selectedColor === color ? (
+                          <p className="text-xs">{color}</p>
+                        ) : (
+                          <p className="invisible text-xs">{color}</p>
+                        )}
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          )}
+          </div>
+        </>
       )}
     </div>
   );
