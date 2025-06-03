@@ -4,10 +4,10 @@ import logo from "../assets/logo.png";
 
 
 const navigation = [
-  { name: 'Anasayfa', href: '#', current: true },
-  { name: 'Ürünler', href: '#', current: false },
-  { name: 'Projeler', href: '#', current: false },
-  { name: 'Polen', href: '#', current: false },
+  { name: 'Homepage', href: '#', current: true },
+  { name: 'Products', href: '#', current: false },
+  { name: 'Projects', href: '#', current: false },
+  { name: 'Pollen', href: '#', current: false },
 ]
 
 function classNames(...classes) {

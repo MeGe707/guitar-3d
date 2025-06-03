@@ -86,7 +86,7 @@ export default function CustomizerPage() {
           selectedColor={selectedColor}
           lastColors={lastColors} />
       </div>
-      <Link to="/product">
+      <Link to="/">
       <button className=" absolute px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-lg 
     hover:bg-blue-700 
     focus:outline-none 
