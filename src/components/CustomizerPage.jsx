@@ -1,6 +1,7 @@
 // CustomizerPage.jsx
 
-import { useState } from "react";
+import { useState} from "react";
+import { useNavigate } from 'react-router-dom';
 import Choicer from "./Choicer.jsx";
 import Scene from "./Scene.jsx";
 import { Link } from "react-router-dom";
@@ -10,6 +11,8 @@ export default function CustomizerPage() {
   const [selectedCategory, setSelectedCategory] = useState("Guitar Body");
   const [selectedModel, setSelectedModel] = useState("Bumblebee");
   const [selectedColor, setSelectedColor] = useState("Yellow");
+
+  const navigate = useNavigate();
 
   // 2) lastColors’u parent’ta tutuyoruz (component mount/remount olsa da silinmez)
   const [lastColors, setLastColors] = useState({
@@ -86,13 +89,14 @@ export default function CustomizerPage() {
           selectedColor={selectedColor}
           lastColors={lastColors} />
       </div>
-      <Link to="/">
-      <button className=" absolute px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-lg 
+      
+      <button type="reload" onClick={() => navigate('/product')} className=" absolute px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-lg 
     hover:bg-blue-700 
     focus:outline-none 
     focus:ring-2 
     focus:ring-blue-400 
     transition
+    cursor-pointer
   " 
   style={{
     bottom: isChoicerOpen
@@ -103,7 +107,7 @@ export default function CustomizerPage() {
 >
   Done
 </button>
-  </Link>
+
 
       <Choicer
         isOpen={isChoicerOpen}

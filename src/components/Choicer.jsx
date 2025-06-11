@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 const choices = [
   {
     category: "Guitar Body",

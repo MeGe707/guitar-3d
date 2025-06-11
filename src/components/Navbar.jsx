@@ -1,6 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from "../assets/logo.png";
+import { useNavigate } from 'react-router-dom';
 
 
 const navigation = [
@@ -10,11 +11,15 @@ const navigation = [
   { name: 'Pollen', href: '#', current: false },
 ]
 
+
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
+
+  const navigate = useNavigate();
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -37,9 +42,9 @@ export default function Example() {
               />
             </div>
             <div className="hidden sm:ml-6  sm:block">
-              <div className="flex space-x-4 mt-5">
+              <div className="flex space-x-4 mt-5"  >
                 {navigation.map((item) => (
-                  <a
+                  <button
                     key={item.name}
                     href={item.href}
                     aria-current={item.current ? 'page' : undefined}
@@ -47,9 +52,10 @@ export default function Example() {
                       item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
+                    onClick={() => navigate('/product')}
                   >
                     {item.name}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>

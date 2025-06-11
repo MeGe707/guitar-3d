@@ -1,6 +1,6 @@
 import React from 'react'
 import Scene from './components/Scene.jsx'
-import { Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import Example from './components/Navbar.jsx'
 import { FooterWithLogo } from './components/Footer.jsx'
 import Choicer from './components/Choicer.jsx'
@@ -13,19 +13,19 @@ const App = () => {
       <Example></Example>
       
 
+   
+        <Routes>
+          <Route path='/product' element = {<ProductPage/>}/>
+         <Route path='/customizer-page' element = {<CustomizerPage/>}/>
+        </Routes>
+     
 
-      <Routes>
-        <Route path='/' element = {<ProductPage/>}/>
-        <Route path='/customizer-page' element = {<CustomizerPage/>}/>
-        
-        
 
-      </Routes>
 
 
       {/* <CustomizerPage></CustomizerPage> */}
     
-      <FooterWithLogo></FooterWithLogo> 
+     
 
       
     </main>
